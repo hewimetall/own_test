@@ -1,0 +1,55 @@
+version: '3'
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./conf/nginx/logs/:/var/log/nginx/
+      - ./conf/nginx/:/etc/nginx/conf.d
+      - static_volume:/www/static  # <-- bind the static volume
+      - media_volume:/www/media  # <-- bind the media volume
+    depends_on:
+      - back
+    networks:
+      - nginx_network
+
+  db:
+    image: postgres:12.1
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./conf/postgres/logs:/var/log/postgresql
+
+    restart: always
+    env_file: # <-- we use the previously defined values
+      - ./conf/postgres/conf
+    networks:
+      - database1_network
+
+  back:
+    build:
+      context: ./go-simple/
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/www/static  # <-- bind the static volume
+      - media_volume:/www/media  # <-- bind the media volume
+    restart: always
+
+    depends_on:
+      - db
+    networks:
+      - nginx_network
+      - database1_network
+
+volumes:
+  postgres_data:
+  static_volume:  # <-- declare the static volume
+  media_volume:  # <-- declare the media volume
+
+networks:
+  nginx_network:
+    driver: bridge
+  database1_network:
+    driver: bridge

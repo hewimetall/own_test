@@ -1,0 +1,62 @@
+2020/10/15 04:21:06 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:08 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:10 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:12 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:14 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:17 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:21 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:29 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:21:43 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:22:10 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:02 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:11 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:14 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:16 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:17 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:19 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:23 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:27 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:35 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:4
+2020/10/15 04:23:50 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:23:52 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:23:54 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:23:56 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:23:58 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:24:01 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:24:05 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:24:13 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:24:27 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:34 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:36 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:38 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:40 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:42 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:45 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:50 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:24:57 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:25:11 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:25:38 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:26:30 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:33
+2020/10/15 04:31:35 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:37 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:39 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:41 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:43 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:46 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:50 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:31:58 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:32:12 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/default.conf:1
+2020/10/15 04:32:32 [emerg] 1#1: unknown "loggable" variable
+2020/10/15 04:32:34 [emerg] 1#1: unknown "loggable" variable
+2020/10/15 04:32:36 [emerg] 1#1: unknown "loggable" variable
+2020/10/15 04:32:38 [emerg] 1#1: unknown "loggable" variable
+2020/10/15 04:32:40 [emerg] 1#1: unknown "loggable" variable
+2020/10/15 04:32:43 [emerg] 1#1: unknown "loggable" variable
+2020/10/15 04:36:23 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:26 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:28 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:30 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:31 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:35 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:39 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
+2020/10/15 04:36:47 [emerg] 1#1: host not found in upstream "back:8000" in /etc/nginx/conf.d/default.conf:10
