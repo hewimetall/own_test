@@ -142,6 +142,18 @@ func TestProcessQueryIncludesLoaderErrors(t *testing.T) {
 	}
 }
 
+func TestProcessQueryIncludesSingleJobLoaderErrors(t *testing.T) {
+	result, err := processQuery(`{ job(id: 1) { id } }`, func() ([]Job, error) {
+		return nil, errors.New("single job loader failed")
+	})
+	if err != nil {
+		t.Fatalf("processQuery returned Go error for resolver error: %v", err)
+	}
+	if !strings.Contains(result, "single job loader failed") {
+		t.Fatalf("expected single-job loader error in GraphQL response, got %s", result)
+	}
+}
+
 func TestGQLHandlerWritesJSONResponse(t *testing.T) {
 	handler := gqlHandlerWithLoader(sampleLoader)
 	request := httptest.NewRequest(http.MethodPost, "/graphql", strings.NewReader(`{"query":"{ jobs { id } }"}`))

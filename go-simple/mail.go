@@ -42,10 +42,7 @@ func routes() http.Handler {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "hello.html")
 	})
-	graphiqlHandler, err := graphiql.NewGraphiqlHandler("/graphql")
-	if err != nil {
-		panic(err)
-	}
+	graphiqlHandler, _ := graphiql.NewGraphiqlHandler("/graphql")
 
 	mux.Handle("/graphql", gqlHandler())
 	mux.Handle("/graphiql", graphiqlHandler)

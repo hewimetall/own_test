@@ -88,16 +88,9 @@ func processQuery(query string, loadJobs jobLoader) (string, error) {
 	if loadJobs == nil {
 		return "", errors.New("job loader is required")
 	}
-	schema, err := gqlSchema(loadJobs)
-	if err != nil {
-		return "", err
-	}
-	params := graphql.Params{Schema: schema, RequestString: query}
+	params := graphql.Params{Schema: gqlSchema(loadJobs), RequestString: query}
 	r := graphql.Do(params)
-	rJSON, err := json.Marshal(r)
-	if err != nil {
-		return "", err
-	}
+	rJSON, _ := json.Marshal(r)
 
 	return string(rJSON), nil
 }
@@ -121,7 +114,7 @@ func retrieveJobsFromFile(path string) jobLoader {
 }
 
 // Define the GraphQL Schema
-func gqlSchema(queryJobs jobLoader) (graphql.Schema, error) {
+func gqlSchema(queryJobs jobLoader) graphql.Schema {
 	fields := graphql.Fields{
 		"jobs": &graphql.Field{
 			Type:        graphql.NewList(jobType),
@@ -157,10 +150,7 @@ func gqlSchema(queryJobs jobLoader) (graphql.Schema, error) {
 	}
 	rootQuery := graphql.ObjectConfig{Name: "RootQuery", Fields: fields}
 	schemaConfig := graphql.SchemaConfig{Query: graphql.NewObject(rootQuery)}
-	schema, err := graphql.NewSchema(schemaConfig)
-	if err != nil {
-		return graphql.Schema{}, err
-	}
+	schema, _ := graphql.NewSchema(schemaConfig)
 
-	return schema, nil
+	return schema
 }
