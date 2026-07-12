@@ -1,0 +1,34 @@
+name: Go
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go-simple
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go-simple/go.mod
+          cache-dependency-path: go-simple/go.sum
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Run tests with coverage
+        run: go test -coverprofile=coverage.out ./...
+
+      - name: Enforce coverage threshold
+        run: go tool cover -func=coverage.out | awk '/^total:/ { if ($3+0 < 93) exit 1 }'
+
+      - name: Build
+        run: go build ./...

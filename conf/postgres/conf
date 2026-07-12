@@ -1,0 +1,3 @@
+POSTGRES_DB=own_test
+POSTGRES_USER=own_test
+POSTGRES_PASSWORD=own_test_password

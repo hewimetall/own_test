@@ -1,17 +1,15 @@
- 
 package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
+	"errors"
 	"net/http"
 	"os"
 
 	"github.com/graphql-go/graphql"
 )
 
-//Job struct
+// Job struct
 type Job struct {
 	ID             int      `json:"id"`
 	Position       string   `json:"position"`
@@ -55,71 +53,74 @@ type reqBody struct {
 	Query string `json:"query"`
 }
 
+type jobLoader func() ([]Job, error)
+
 func gqlHandler() http.Handler {
+	return gqlHandlerWithLoader(retrieveJobsFromFile("data.json"))
+}
+
+func gqlHandlerWithLoader(loadJobs jobLoader) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Body == nil {
 			http.Error(w, "No query data", 400)
 			return
 		}
+		defer r.Body.Close()
 
 		var rBody reqBody
 		err := json.NewDecoder(r.Body).Decode(&rBody)
 		if err != nil {
 			http.Error(w, "Error parsing JSON request body", 400)
+			return
 		}
 
-		fmt.Fprintf(w, "%s", processQuery(rBody.Query))
-
+		result, err := processQuery(rBody.Query, loadJobs)
+		if err != nil {
+			http.Error(w, "Error processing GraphQL query", 500)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(result))
 	})
 }
 
-func processQuery(query string) (result string) {
-
-	retrieveJobs := retrieveJobsFromFile()
-
-	params := graphql.Params{Schema: gqlSchema(retrieveJobs), RequestString: query}
-	r := graphql.Do(params)
-	if len(r.Errors) > 0 {
-		fmt.Printf("failed to execute graphql operation, errors: %+v", r.Errors)
+func processQuery(query string, loadJobs jobLoader) (string, error) {
+	if loadJobs == nil {
+		return "", errors.New("job loader is required")
 	}
+	params := graphql.Params{Schema: gqlSchema(loadJobs), RequestString: query}
+	r := graphql.Do(params)
 	rJSON, _ := json.Marshal(r)
 
-	return fmt.Sprintf("%s", rJSON)
-
+	return string(rJSON), nil
 }
 
-//Open the file data.json and retrieve json data
-func retrieveJobsFromFile() func() []Job {
-	return func() []Job {
-		jsonf, err := os.Open("data.json")
-
+// retrieveJobsFromFile opens a JSON data file and returns the decoded jobs.
+func retrieveJobsFromFile(path string) jobLoader {
+	return func() ([]Job, error) {
+		jsonDataFromFile, err := os.ReadFile(path)
 		if err != nil {
-			fmt.Printf("failed to open json file, error: %v", err)
+			return nil, err
 		}
-
-		jsonDataFromFile, _ := ioutil.ReadAll(jsonf)
-		defer jsonf.Close()
 
 		var jobsData []Job
-
 		err = json.Unmarshal(jsonDataFromFile, &jobsData)
-
 		if err != nil {
-			fmt.Printf("failed to parse json, error: %v", err)
+			return nil, err
 		}
 
-		return jobsData
+		return jobsData, nil
 	}
 }
 
 // Define the GraphQL Schema
-func gqlSchema(queryJobs func() []Job) graphql.Schema {
+func gqlSchema(queryJobs jobLoader) graphql.Schema {
 	fields := graphql.Fields{
 		"jobs": &graphql.Field{
 			Type:        graphql.NewList(jobType),
 			Description: "All Jobs",
 			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-				return queryJobs(), nil
+				return queryJobs()
 			},
 		},
 		"job": &graphql.Field{
@@ -133,8 +134,12 @@ func gqlSchema(queryJobs func() []Job) graphql.Schema {
 			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
 				id, success := params.Args["id"].(int)
 				if success {
-					for _, job := range queryJobs() {
-						if int(job.ID) == id {
+					jobs, err := queryJobs()
+					if err != nil {
+						return nil, err
+					}
+					for _, job := range jobs {
+						if job.ID == id {
 							return job, nil
 						}
 					}
@@ -145,11 +150,7 @@ func gqlSchema(queryJobs func() []Job) graphql.Schema {
 	}
 	rootQuery := graphql.ObjectConfig{Name: "RootQuery", Fields: fields}
 	schemaConfig := graphql.SchemaConfig{Query: graphql.NewObject(rootQuery)}
-	schema, err := graphql.NewSchema(schemaConfig)
-	if err != nil {
-		fmt.Printf("failed to create new schema, error: %v", err)
-	}
+	schema, _ := graphql.NewSchema(schemaConfig)
 
 	return schema
-
 }
