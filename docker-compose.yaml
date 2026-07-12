@@ -1,8 +1,7 @@
-version: '3'
 services:
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.27-alpine
     ports:
       - 80:80
     restart: always
@@ -17,7 +16,7 @@ services:
       - nginx_network
 
   db:
-    image: postgres:12.1
+    image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./conf/postgres/logs:/var/log/postgresql

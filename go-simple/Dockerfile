@@ -1,14 +1,15 @@
-FROM golang:latest AS build
-RUN mkdir /app 
-ADD . /app/ 
-WORKDIR /app 
-RUN \
-    go get github.com/gorilla/websocket && \
-    go get github.com/friendsofgo/graphiql && \
-    go get github.com/graphql-go/graphql
-RUN go build -o main . 
+FROM golang:1.22 AS build
 
-FROM golang:latest
-RUN mkdir /code
-COPY --from=build /app/* /code/
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /main .
+
+FROM gcr.io/distroless/static-debian12:nonroot
+
+WORKDIR /code
+COPY --from=build /main ./main
+COPY data.json hello.html ./
+EXPOSE 8000
 CMD ["/code/main"]
