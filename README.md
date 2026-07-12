@@ -9,7 +9,7 @@ Small Go service that serves:
 
 ## Requirements
 
-- Go 1.22 or newer
+- Go 1.25.12 or newer
 - Docker Compose, only if you want to run the full container stack locally
 
 ## Setup

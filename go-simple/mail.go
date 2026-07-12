@@ -53,7 +53,5 @@ func routes() http.Handler {
 }
 
 func main() {
-	if err := http.ListenAndServe(":8000", routes()); err != nil {
-		panic(err)
-	}
+	panic(http.ListenAndServe(":8000", routes()))
 }

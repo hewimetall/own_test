@@ -1,6 +1,6 @@
 module github.com/hewimetall/own_test/go-simple
 
-go 1.22.2
+go 1.25.12
 
 require (
 	github.com/friendsofgo/graphiql v0.2.2

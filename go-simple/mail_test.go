@@ -37,6 +37,20 @@ func TestRoutesServeGraphiQL(t *testing.T) {
 	}
 }
 
+func TestRoutesServeGraphQLFromDataFile(t *testing.T) {
+	request := httptest.NewRequest(http.MethodPost, "/graphql", strings.NewReader(`{"query":"{ jobs { id company } }"}`))
+	recorder := httptest.NewRecorder()
+
+	routes().ServeHTTP(recorder, request)
+
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("expected status 200, got %d and body %q", recorder.Code, recorder.Body.String())
+	}
+	if !strings.Contains(recorder.Body.String(), `"company":"Apple"`) {
+		t.Fatalf("expected GraphQL data from data.json, got %q", recorder.Body.String())
+	}
+}
+
 func TestWebsocketServerEchoesMessages(t *testing.T) {
 	server := httptest.NewServer(routes())
 	defer server.Close()

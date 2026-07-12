@@ -98,6 +98,19 @@ func TestProcessQueryReturnsNullForUnknownJob(t *testing.T) {
 	}
 }
 
+func TestProcessQueryReturnsNullWhenJobIDIsOmitted(t *testing.T) {
+	result, err := processQuery(`{ job { id company } }`, sampleLoader)
+	if err != nil {
+		t.Fatalf("processQuery returned error: %v", err)
+	}
+
+	payload := decodeGraphQLResult(t, result)
+	data := payload["data"].(map[string]any)
+	if data["job"] != nil {
+		t.Fatalf("expected job without id to be null, got %#v", data["job"])
+	}
+}
+
 func TestProcessQueryReportsGraphQLErrors(t *testing.T) {
 	result, err := processQuery(`{ missingField }`, sampleLoader)
 	if err != nil {
